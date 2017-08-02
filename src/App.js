@@ -40,7 +40,8 @@ class BooksApp extends Component {
             </div>
           </div>
         ) : (
-          <ListBooks />
+          <ListBooks books={this.state.books}
+          />
         )}
       </div>
     )
