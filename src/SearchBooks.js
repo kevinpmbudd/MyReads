@@ -10,7 +10,7 @@
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query })
 
     BooksAPI.search(query).then((books) => {
       this.setState({books})
@@ -40,12 +40,13 @@
               value={query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
+            <button className="search-button" />
             
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {books.map((book) => (
+          {books.length > 0  && books.map((book) => (
             <Book book={book} key={book.id}/>
             ))}
           </ol>
