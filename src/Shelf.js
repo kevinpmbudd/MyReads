@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 
 class Shelf extends Component {
-  state = {
-    // category: ''
-  }
-
+ 
   render() {
     const { books } = this.props
-    console.log(books)
+
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.category}</h2>
