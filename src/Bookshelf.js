@@ -32,16 +32,10 @@ class Bookshelf extends Component {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-
-          { currentlyReading.length > 0 && (
-            <Shelf books={currentlyReading} category='Currently Reading' handleSelection={this.handleSelection} />
-            )}
-          
+          <Shelf books={currentlyReading} category='Currently Reading' handleSelection={this.handleSelection} />
           <Shelf books={wantToRead} category='Want to Read' handleSelection={this.handleSelection} />
           <Shelf books={read} category='Read' handleSelection={this.handleSelection} />
-
         </div>
-
         <div className="open-search">
           <Link to='/search'>Add a book</Link>
         </div>
