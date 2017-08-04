@@ -1,6 +1,7 @@
  import React, { Component } from 'react'
  import { Link } from 'react-router-dom'
  import * as BooksAPI from './BooksAPI'
+ import { debounce } from 'throttle-debounce/debounce'
 
  class SearchBooks extends Component {
   state = {
@@ -11,35 +12,37 @@
   updateQuery = (query) => {
     this.setState({ query })
 
-    BooksAPI.search(query).then((foundBooks) => {
+    this.sendSearch()
+  }
+
+  sendSearch = () => {
+    debounce(300, BooksAPI.search(this.state.query).then((foundBooks) => {
       this.setState({foundBooks})
-    })
+    }))
   }
 
   handleSelection = (book, shelf) => {
-    // console.log(book)
     this.props.onUpdateBook(book, shelf)
   }
 
   valueFinder = (book) => {
-  let newbook
+  let myBook
 
-  console.log(book)
-
-  newbook = this.props.books.find((bookOnShelf) => bookOnShelf.id === book.id)
+  myBook = this.props.books.find((bookOnShelf) => bookOnShelf.id === book.id)
   
-  if (newbook)
-    return newbook.shelf
+  if (myBook)
+    return myBook.shelf
   else
-    return "none"
+    return book.shelf
   }
 
   
   render() {
     const { query, foundBooks } = this.state
-    const { books } = this.props
+    // const { books } = this.props
 
     return (
+
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
@@ -51,19 +54,21 @@
               
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input 
-              type="text" 
-              placeholder="Search by title or author"
-              value={query}
-              onChange={(event) => this.updateQuery(event.target.value)}
-            />
+            */} 
+            
+              <input 
+                type="text" 
+                placeholder="Search by title or author"
+                value={query}
+                onChange={(event) => this.updateQuery(event.target.value)}
+              />
+            
             
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {foundBooks.length !== 0  && foundBooks.map((book) => (
+          {foundBooks.map((book) => (
             <li key={book.id}>
                 <div className="book">
                   <div className="book-top">

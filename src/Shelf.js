@@ -6,8 +6,8 @@ class Shelf extends Component {
     const { books, category, handleSelection } = this.props
 
     return (
-
-      <div className="bookshelf">
+      
+        <div className="bookshelf">
         <h2 className="bookshelf-title">{category}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
@@ -35,7 +35,8 @@ class Shelf extends Component {
           </ol>
         </div>
       </div>
-
+    
+      
     )
   }
 } 

@@ -10,7 +10,7 @@ class BooksApp extends Component {
   state = {
    books: []
   }
-  componentWillMount() {
+  componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
@@ -23,16 +23,19 @@ class BooksApp extends Component {
   }
 
   render() {
+    const { books } = this.state
+
     return (
       <div className="app">
-        <Route exact path='/' render={() => (
-          <Bookshelf books={this.state.books} 
+
+          <Route exact path='/' render={() => (
+            <Bookshelf books={ books } 
           onUpdateBook={(book,shelf) => {
             this.updateBook(book, shelf)
             // history.push('/')
-          }} />
-         
+            }} />
         )}/>
+        
         <Route path='/search' render={({ history }) => (
           <SearchBooks onUpdateBook={(book,shelf) => {
             this.updateBook(book, shelf)
