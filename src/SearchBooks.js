@@ -5,30 +5,39 @@
  class SearchBooks extends Component {
   state = {
     query: '',
-    searchedBooks: [],
-    shelf: ''
+    foundBooks: [],
   }
 
   updateQuery = (query) => {
     this.setState({ query })
 
-    BooksAPI.search(query).then((searchedBooks) => {
-      this.setState({searchedBooks})
-
-      console.log(searchedBooks)
+    BooksAPI.search(query).then((foundBooks) => {
+      this.setState({foundBooks})
     })
   }
 
   handleSelection = (book, shelf) => {
-    console.log(book)
+    // console.log(book)
     this.props.onUpdateBook(book, shelf)
   }
+
+  valueFinder = (book) => {
+  let newbook
+
+  console.log(book)
+
+  newbook = this.props.books.find((bookOnShelf) => bookOnShelf.id === book.id)
+  
+  if (newbook)
+    return newbook.shelf
+  else
+    return "none"
+  }
+
   
   render() {
-    const { query, searchedBooks } = this.state
+    const { query, foundBooks } = this.state
     const { books } = this.props
-
-    console.log( books )
 
     return (
       <div className="search-books">
@@ -54,14 +63,14 @@
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-          {searchedBooks.length > 0  && searchedBooks.map((book) => (
+          {foundBooks.length !== 0  && foundBooks.map((book) => (
             <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 188,
                       backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}/>
                       <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(event) => this.handleSelection(book, event.target.value)} >
+                        <select value={this.valueFinder(book)} onChange={(event) => this.handleSelection(book, event.target.value)} >
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
