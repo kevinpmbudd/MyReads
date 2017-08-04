@@ -9,7 +9,7 @@ class Bookshelf extends Component {
   }
   
   handleSelection = (book, shelf) => {
-    console.log(book)
+    // console.log(book)
     this.props.onUpdateBook(book, shelf)
   }
 

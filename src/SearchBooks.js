@@ -1,28 +1,34 @@
  import React, { Component } from 'react'
  import { Link } from 'react-router-dom'
+ import PropTypes from 'prop-types'
  import * as BooksAPI from './BooksAPI'
  import { debounce } from 'throttle-debounce/debounce'
 
  class SearchBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired
+  }
+
   state = {
     query: '',
     foundBooks: [],
   }
 
-  updateQuery = (query) => {
-    this.setState({ query })
+  updateQuery = (e) => {
+    this.setState({ query: e.target.value })
 
     this.sendSearch()
   }
 
   sendSearch = () => {
     debounce(300, BooksAPI.search(this.state.query).then((foundBooks) => {
-      this.setState({foundBooks})
+      this.setState({ foundBooks })
     }))
   }
 
   handleSelection = (book, shelf) => {
     this.props.onUpdateBook(book, shelf)
+
   }
 
   valueFinder = (book) => {
@@ -39,7 +45,6 @@
   
   render() {
     const { query, foundBooks } = this.state
-    // const { books } = this.props
 
     return (
 
@@ -55,15 +60,12 @@
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */} 
-            
               <input 
                 type="text" 
                 placeholder="Search by title or author"
                 value={query}
-                onChange={(event) => this.updateQuery(event.target.value)}
+                onChange={this.updateQuery}
               />
-            
-            
           </div>
         </div>
         <div className="search-books-results">

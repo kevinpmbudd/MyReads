@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Bookshelf from './Bookshelf.js'
-
 import SearchBooks from './SearchBooks.js'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -17,7 +16,9 @@ class BooksApp extends Component {
   }
 
   updateBook(book, shelf) {
-    BooksAPI.update(book, shelf).then((books) => {
+    BooksAPI.update(book, shelf)
+    
+    BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
@@ -39,9 +40,10 @@ class BooksApp extends Component {
         <Route path='/search' render={({ history }) => (
           <SearchBooks onUpdateBook={(book,shelf) => {
             this.updateBook(book, shelf)
-            // history.push('/')
+            history.push('/')
           }} 
-          books={this.state.books} />
+          books={books} 
+         />
         )}/>  
       </div>
     )
