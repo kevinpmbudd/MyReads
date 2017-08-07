@@ -19,6 +19,7 @@
   }
 
   static propTypes = {
+    onAddBook: PropTypes.func.isRequired,
     books: PropTypes.array.isRequired
   }
 
@@ -30,22 +31,22 @@
   updateQuery = (e) => {
     this.setState({ query: e.target.value })
 
-    if (this.state.query)
+    if (this.state.query !== ' ')
       this.sendSearch()
   }
 
-  sendSearch = () => {
+  sendSearch() {
     // debugger
-    if (this.state.query.length !== 0)
+    if (this.state.query.length !== 0) {
       debounce(500, BooksAPI.search(this.state.query).then((searchResults) => {
           this.setState({ foundBooks: searchResults })
       }))
+    }
   }
 
   handleSelection = (book, shelf) => {
-    this.props.onUpdateBook(book, shelf)
+    this.props.onAddBook(book, shelf)
   }
-
   
   render() {
     const { query, foundBooks } = this.state

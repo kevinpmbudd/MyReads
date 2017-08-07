@@ -14,13 +14,22 @@ class BooksApp extends Component {
       this.setState({ books })
     })
   }
-  
+
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf)
-    
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
+
+    let booksCopy = this.state.books.slice()
+
+    booksCopy.forEach(function(_book) {
+      if (_book.id === book.id) 
+        _book.shelf = shelf
     })
+
+    this.setState( {books: booksCopy} )
+  }
+
+  addBook(book, shelf) {
+    BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => this.setState( {books }) ))
   }
 
   render() {
@@ -38,8 +47,8 @@ class BooksApp extends Component {
         )}/>
         
         <Route path='/search' render={({ history }) => (
-          <SearchBooks onUpdateBook={(book,shelf) => {
-            this.updateBook(book, shelf)
+          <SearchBooks onAddBook={(book,shelf) => {
+            this.addBook(book, shelf)
             history.push('/')
           }} 
           books={books} 
