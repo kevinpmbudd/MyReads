@@ -18,13 +18,17 @@
   updateQuery = (e) => {
     this.setState({ query: e.target.value })
 
-    this.sendSearch()
+    if (this.state.query)
+      this.sendSearch()
   }
 
   sendSearch = () => {
-    debounce(300, BooksAPI.search(this.state.query).then((searchResults) => {
-      this.setState({ foundBooks: searchResults })
-    }))
+
+    // debugger
+    if (this.state.query.length !== 0)
+      debounce(500, BooksAPI.search(this.state.query).then((searchResults) => {
+          this.setState({ foundBooks: searchResults })
+        }))
   }
 
   handleSelection = (book, shelf) => {
