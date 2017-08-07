@@ -4,16 +4,28 @@
  import SearchResults from './SearchResults.js'
  import * as BooksAPI from './BooksAPI'
  import { debounce } from 'throttle-debounce/debounce'
+ // import { Debounce } from 'react-throttle';
 
  class SearchBooks extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      query: '',
+      foundBooks: [],
+    }
+
+    this.updateQuery = this.updateQuery.bind(this)
+  }
+
   static propTypes = {
     books: PropTypes.array.isRequired
   }
 
-  state = {
-    query: '',
-    foundBooks: [],
-  }
+  // state = {
+  //   query: '',
+  //   foundBooks: [],
+  // }
 
   updateQuery = (e) => {
     this.setState({ query: e.target.value })
@@ -23,12 +35,11 @@
   }
 
   sendSearch = () => {
-
     // debugger
     if (this.state.query.length !== 0)
       debounce(500, BooksAPI.search(this.state.query).then((searchResults) => {
           this.setState({ foundBooks: searchResults })
-        }))
+      }))
   }
 
   handleSelection = (book, shelf) => {
@@ -48,7 +59,7 @@
               <input 
                 type="text" 
                 placeholder="Search by title or author"
-                value={query}
+                value={ query }
                 onChange={this.updateQuery}
               />
           </div>

@@ -14,7 +14,7 @@ class BooksApp extends Component {
       this.setState({ books })
     })
   }
-
+  
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf)
     

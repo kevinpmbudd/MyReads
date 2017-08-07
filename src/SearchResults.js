@@ -22,7 +22,7 @@ class SearchResults extends Component {
     return (
     <div className="search-books-results">
 
-        { query.length !== 0 && books.length !== 0 && (
+        { query.length !== 0 && books && (
           
           <ol className="books-grid">
             {books.map((book) => (
