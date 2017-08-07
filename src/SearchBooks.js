@@ -22,8 +22,8 @@
   }
 
   sendSearch = () => {
-    debounce(300, BooksAPI.search(this.state.query).then((foundBooks) => {
-      this.setState({ foundBooks })
+    debounce(300, BooksAPI.search(this.state.query).then((searchResults) => {
+      this.setState({ foundBooks: searchResults })
     }))
   }
 
@@ -49,7 +49,7 @@
               />
           </div>
         </div>
-        <SearchResults books={ foundBooks } query={ query }handleSelection={this.handleSelection}/>
+        <SearchResults books={ foundBooks } myBooks={ this.props.books } query={ query } handleSelection={this.handleSelection}/>
        </div>
     )
   }

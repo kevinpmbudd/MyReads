@@ -3,14 +3,18 @@ import React, { Component } from 'react'
 class SearchResults extends Component {
 
   shelfFinder = (book) => {
-  let myBook
+    let myBook, shelf
 
-  myBook = this.props.books.find((bookOnShelf) => bookOnShelf.id === book.id)
-  
-  if (myBook)
-    return myBook.shelf
-  else
-    return book.shelf
+    myBook = this.props.myBooks.find((bookOnShelf) => bookOnShelf.id === book.id)
+
+    if (myBook)
+      shelf = myBook.shelf
+    else
+      shelf = book.shelf
+
+    return shelf
+    // attempt if statement as a ?: ternary operator? what cha ma callit
+    // (myBook) ? return myBook.shelf : return book.shelf
   }
 
 
@@ -30,7 +34,7 @@ class SearchResults extends Component {
                     <div className="book-cover" style={{ width: 128, height: 188,
                       backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}/>
                       <div className="book-shelf-changer">
-                        <select value={this.shelfFinder(book)} onChange={(event) => this.handleSelection(book, event.target.value)} >
+                        <select value={this.shelfFinder(book)} onChange={(event) => handleSelection(book, event.target.value)} >
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
