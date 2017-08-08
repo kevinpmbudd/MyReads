@@ -23,23 +23,17 @@
     books: PropTypes.array.isRequired
   }
 
-  // state = {
-  //   query: '',
-  //   foundBooks: [],
-  // }
-
   updateQuery = (e) => {
     this.setState({ query: e.target.value })
 
-    if (this.state.query !== ' ')
-      this.sendSearch()
+    this.sendSearch(this.state.query)
   }
 
-  sendSearch() {
-    // debugger
-    if (this.state.query.length !== 0) {
-      debounce(500, BooksAPI.search(this.state.query).then((searchResults) => {
-          this.setState({ foundBooks: searchResults })
+  sendSearch(query) {
+    if (query) {
+      debounce(750, BooksAPI.search(query).then((searchResults) => {
+          if (searchResults.constructor === Array && searchResults.length !== 0)
+            this.setState({ foundBooks: searchResults })
       }))
     }
   }
@@ -52,8 +46,7 @@
     const { query, foundBooks } = this.state
 
     return (
-
-      <div className="search-books">
+        <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
@@ -61,7 +54,7 @@
                 type="text" 
                 placeholder="Search by title or author"
                 value={ query }
-                onChange={this.updateQuery}
+                onChange={ this.updateQuery }
               />
           </div>
         </div>

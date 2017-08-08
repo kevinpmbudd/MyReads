@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class SearchResults extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    myBooks: PropTypes.array.isRequired,
+    handleSelection: PropTypes.func.isRequired
+  }
 
   shelfFinder = (book) => {
     let myBook, shelf
@@ -26,7 +32,8 @@ class SearchResults extends Component {
           
           <ol className="books-grid">
             {books.map((book) => (
-            <li key={book.id}>
+              book && (
+                <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 188,
@@ -45,6 +52,7 @@ class SearchResults extends Component {
                   <div className="book-authors"></div>
                 </div>
               </li>
+              )
             ))}
           </ol>
           
