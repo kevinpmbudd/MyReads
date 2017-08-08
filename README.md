@@ -2,7 +2,7 @@ MyReads - A book search and book shelf app.
 
 To get started, in the project directory run:
 
-### 'npm install && npm start'
+### npm install && npm start
 
 By default, the project will be viewable at http://localhost:3000
 
