@@ -3,8 +3,7 @@
  import PropTypes from 'prop-types'
  import SearchResults from './SearchResults.js'
  import * as BooksAPI from './BooksAPI'
- import { debounce } from 'throttle-debounce/debounce'
- // import { Debounce } from 'react-throttle';
+ import debounce from 'throttle-debounce/debounce'
 
  class SearchBooks extends Component {
   constructor(props) {
