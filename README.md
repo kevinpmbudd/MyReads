@@ -1,3 +1,15 @@
+MyReads - A book search and book shelf app. 
+
+To get started, in the project directory run:
+
+### 'npm install && npm start'
+
+By default, the project will be viewable at http://localhost:3000
+
+
+This project, as part of the React Nanodegree by Udacity, was started using a started template provided by Udacity, more information on that and the project at large follows.
+
+
 This is the starter template for the final assessment project for Udacity's React Fundamentals course, developed by [React Training](https://reacttraining.com). The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
