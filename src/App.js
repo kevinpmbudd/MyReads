@@ -29,17 +29,16 @@ class BooksApp extends Component {
     this.setState( {books: booksCopy} )
   }
 
-  addBook(book, shelf) {
-    // BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => this.setState( {books }) ))
-    BooksAPI.update(book, shelf)
+  addBook(book, shelf, history) {
+    BooksAPI.update(book, shelf).then(history.push('/'))
 
     book.shelf = shelf
 
-    // let booksCopy = this.state.books.slice()
-    // booksCopy.push(book)
-    // this.setState( {books: booksCopy })
+    let booksCopy = this.state.books.slice()
+    booksCopy.push(book)
+    this.setState( {books: booksCopy })
 
-    console.log(book)
+
   }
 
   render() {
@@ -50,19 +49,18 @@ class BooksApp extends Component {
 
           <Route exact path='/' render={() => (
             <Bookshelf books={ books } 
-          onUpdateBook={(book,shelf) => {
-            this.updateBook(book, shelf)
-            // history.push('/')
-            }} />
+                       onUpdateBook={(book,shelf) => {
+                         this.updateBook(book, shelf)
+                        }} 
+            />
         )}/>
         
         <Route path='/search' render={({ history }) => (
           <SearchBooks onAddBook={(book,shelf) => {
-            this.addBook(book, shelf)
-            history.push('/')
-          }} 
-          books={books} 
-         />
+                          this.addBook(book, shelf, history)
+                        }} 
+                       books={books} 
+            />
         )}/>  
       </div>
     )
