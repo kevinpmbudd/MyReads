@@ -22,7 +22,6 @@ class BooksApp extends Component {
       if (_book.id === book.id) {
         _book.shelf = shelf
       }
-
       return _book
     })
 
@@ -31,14 +30,11 @@ class BooksApp extends Component {
 
   addBook(book, shelf, history) {
     BooksAPI.update(book, shelf).then(history.push('/'))
-
     book.shelf = shelf
-
-    let booksCopy = this.state.books.slice()
-    booksCopy.push(book)
-    this.setState( {books: booksCopy })
-
-
+    this.setState( (prevState, props) => {
+      prevState.books.push(book)
+      return { books: prevState.books }
+    })
   }
 
   render() {
