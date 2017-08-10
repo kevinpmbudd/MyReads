@@ -2,6 +2,19 @@ import React, { Component } from 'react'
 
 class Book extends Component {
 
+  shelfFinder (book) {
+      let myBook, shelf
+
+      myBook = this.props.myBooks.find((bookOnShelf) => bookOnShelf.id === book.id)
+
+      if (myBook)
+        shelf = myBook.shelf
+      else
+        shelf = 'none'
+    
+      return shelf
+  }
+
   render() {
     const { book, handleSelection } = this.props
 
@@ -13,7 +26,7 @@ class Book extends Component {
               <div className="book-cover" style={{ width: 128, height: 188,
                 backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}/>
                 <div className="book-shelf-changer">
-                  <select value={book.shelf} onChange={(event) => handleSelection(book, event.target.value)}>
+                  <select value={book.shelf || this.shelfFinder(book)} onChange={(event) => handleSelection(book, event.target.value)}>
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>

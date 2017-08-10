@@ -9,22 +9,8 @@ class SearchResults extends Component {
     handleSelection: PropTypes.func.isRequired
   }
 
-  shelfFinder = (book) => {
-    let myBook, shelf
-
-    myBook = this.props.myBooks.find((bookOnShelf) => bookOnShelf.id === book.id)
-
-    if (myBook)
-      shelf = myBook.shelf
-    else
-      shelf = 'none'
-  
-    return shelf
-  }
-
-
   render() {
-    const { books, query, handleSelection } = this.props
+    const { books, myBooks, query, handleSelection } = this.props
 
     return (
     <div className="search-books-results">
@@ -34,7 +20,7 @@ class SearchResults extends Component {
           <ol className="books-grid">
             {books.map((book) => (
               book && (
-                <Book key={ book.id } book={ book } handleSelection={ handleSelection }/>
+                <Book key={ book.id } book={ book } myBooks={ myBooks } handleSelection={ handleSelection }/>
               )
             ))}
           </ol>

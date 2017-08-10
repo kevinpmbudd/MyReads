@@ -18,18 +18,28 @@ class BooksApp extends Component {
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf)
 
-    let booksCopy = this.state.books.slice()
-
-    booksCopy.forEach(function(_book) {
-      if (_book.id === book.id) 
+    let booksCopy = this.state.books.map((_book) => {
+      if (_book.id === book.id) {
         _book.shelf = shelf
+      }
+
+      return _book
     })
 
     this.setState( {books: booksCopy} )
   }
 
   addBook(book, shelf) {
-    BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => this.setState( {books }) ))
+    // BooksAPI.update(book, shelf).then(BooksAPI.getAll().then((books) => this.setState( {books }) ))
+    BooksAPI.update(book, shelf)
+
+    book.shelf = shelf
+
+    // let booksCopy = this.state.books.slice()
+    // booksCopy.push(book)
+    // this.setState( {books: booksCopy })
+
+    console.log(book)
   }
 
   render() {
